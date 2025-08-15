@@ -6,7 +6,7 @@ const TasksScreen = () => {
     <View className="flex-1 bg-[#f8f4f0] justify-center items-center px-6">
           {/* Title */}
           <Text className="text-3xl font-bold text-gray-800 mb-2">
-            Welcome to Task Dashboard 
+            Task Dashboard 
           </Text>
           <Text className="text-gray-500 mb-3 text-center">
             You’re now on the main screen of the app
