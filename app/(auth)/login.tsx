@@ -5,16 +5,39 @@ import { useRouter } from 'expo-router'
 const Login = () => {
     const router = useRouter()
   return (
-    <View className='flex-1 w-full justify-center align-items-center'>
-          <Text className='text-4xl font-bold'>This is the Login Screen</Text>
-          <Pressable className=' px-6 py-3' onPress={() => router.push('/home')}>
-            <Text className='text-4xl'>Go to Home</Text>
-          </Pressable>
+    <View className="flex-1 bg-[#f8f4f0] justify-center items-center px-6">
+      {/* Title */}
+      <Text className="text-3xl font-bold text-gray-800 mb-2">
+        Login Screen
+      </Text>
+      <Text className="text-gray-500 mb-12 text-center">
+        Choose where you want to go next
+      </Text>
 
-          <Pressable className=' px-6 py-3' onPress={() => router.push('/register')}>
-            <Text className='text-4xl'>Go to Register</Text>
-          </Pressable>
+      {/* Button: Go to Home */}
+      <Pressable
+        onPress={() => router.push('/home')}
+        className="w-full max-w-xs bg-blue-500 rounded-xl shadow-md mb-4"
+        android_ripple={{ color: '#ffffff30', borderless: false }}
+        style={({ pressed }) => [{ opacity: pressed ? 0.85 : 1 }]}
+      >
+        <View className="px-6 py-4 flex-row justify-center items-center">
+          <Text className="text-white text-lg font-semibold">Go to Home</Text>
         </View>
+      </Pressable>
+
+      {/* Button: Go to Register */}
+      <Pressable
+        onPress={() => router.push('/register')}
+        className="w-full max-w-xs bg-green-500 rounded-xl shadow-md"
+        android_ripple={{ color: '#ffffff30', borderless: false }}
+        style={({ pressed }) => [{ opacity: pressed ? 0.85 : 1 }]}
+      >
+        <View className="px-6 py-4 flex-row justify-center items-center">
+          <Text className="text-white text-lg font-semibold">Go to Register</Text>
+        </View>
+      </Pressable>
+    </View>
   )
 }
 
