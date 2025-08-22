@@ -25,31 +25,24 @@ const DashboardLayout = () => {
 
   return (
     <SafeAreaView className="flex-1 bg-white">
-      <Tabs
-        screenOptions={{
+      <Tabs screenOptions={{
           headerShown: false,
-          tabBarActiveTintColor: "#2ecc71",
+          tabBarActiveTintColor: "#239BA7",
           tabBarInactiveTintColor: "#2c3e50",
           tabBarStyle: {
             backgroundColor: "#bdc3c7"
           }
-        }}
-      >
-        <Tabs.Screen
-          name="home"
-          options={{
+        }}>
+        <Tabs.Screen name="home" options={{
             title: "Home",
             tabBarIcon: (data) => (
               <MaterialIcons
                 name="home-filled"
                 size={data.size}
-                color={data.color}
-              />
+                color={data.color}/>
             )
-          }}
-        />
-        <Tabs.Screen
-          name="tasks"
+          }}/>
+        <Tabs.Screen name="tasks"
           // name="tasks/index"
           options={{
             title: "Task",
@@ -57,37 +50,27 @@ const DashboardLayout = () => {
               <MaterialIcons
                 name="check-circle"
                 size={data.size}
-                color={data.color}
-              />
+                color={data.color}/>
             )
-          }}
-        />
-        <Tabs.Screen
-          name="profile"
-          options={{
+          }}/>
+        <Tabs.Screen name="profile" options={{
             title: "Profile",
             tabBarIcon: (data) => (
               <MaterialIcons
                 name="person"
                 size={data.size}
-                color={data.color}
-              />
+                color={data.color}/>
             )
-          }}
-        />
-        <Tabs.Screen
-          name="setting"
-          options={{
+          }}/>
+        <Tabs.Screen name="setting" options={{
             title: "Setting",
             tabBarIcon: (data) => (
               <MaterialIcons
                 name="settings"
                 size={data.size}
-                color={data.color}
-              />
+                color={data.color}/>
             )
-          }}
-        />
+          }}/>
       </Tabs>
     </SafeAreaView>
   )

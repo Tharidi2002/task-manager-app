@@ -1,6 +1,7 @@
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native'
 import React, { useState } from 'react'
-import { useLocalSearchParams } from 'expo-router'
+import { useLocalSearchParams, useRouter } from 'expo-router'
+import { createTask } from '@/services/taskService'
 
 const TaskFormScreen = () => {
     const { id } = useLocalSearchParams<{id: string}>()
@@ -9,8 +10,25 @@ const TaskFormScreen = () => {
 
     const [title, setTitle] = useState<string>('')
     const [description, setDescription] = useState<string>('')
+    const router = useRouter()
 
-    const handleSubmit = async () => {}
+    const handleSubmit = async () => {
+        // validation
+        if(!title.trim){
+            Alert.alert("Validation Error", "Title is required")
+            return
+        }
+
+        try{
+            if(isNew){
+                await createTask({ title, description })
+            }
+            router.back()
+        }catch(err){
+            console.error("Error creating task:", err)
+            Alert.alert("Error", "Failed to save task")
+        }
+    }
 
   return (
     <View className="flex-1 w-full bg-white px-6 py-8">
@@ -39,7 +57,7 @@ const TaskFormScreen = () => {
     />
 
     {/* Submit Button */}
-    <TouchableOpacity className="bg-blue-500 py-4 rounded-2xl shadow-md active:opacity-80">
+    <TouchableOpacity className="bg-blue-500 py-4 rounded-2xl shadow-md active:opacity-80" onPress={handleSubmit}>
       <Text className="text-white text-center text-lg font-semibold">
         {isNew ? "Add Task" : "Update Task"}
       </Text>

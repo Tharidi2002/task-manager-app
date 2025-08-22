@@ -1,4 +1,19 @@
 import api from "./config/api"
+import { addDoc, collection } from "firebase/firestore"
+import { Task } from "@/types/task"
+import { db } from "@/firebase"
+
+// for refer to collection
+export const taskColRef = collection(db, "tasks")
+
+// firebase firestore
+export const createTask = async (task: Task) => {
+    const docRef = await addDoc(taskColRef, task)
+    return docRef.id
+}
+
+
+
 
 
 export const getAllTask = async ()=>{
