@@ -1,11 +1,14 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { Stack } from 'expo-router'
+import { View, Text } from "react-native"
+import React from "react"
+import { Slot, Stack } from "expo-router"
 import "./../global.css"
+import { AuthProvider } from "@/context/AuthContext"
 
 const RootLayout = () => {
   return (
-    <Stack />
+    <AuthProvider>
+      <Slot />
+    </AuthProvider>
   )
 }
 

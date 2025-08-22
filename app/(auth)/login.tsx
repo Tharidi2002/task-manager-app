@@ -1,41 +1,71 @@
-import { View, Text, Pressable } from 'react-native'
-import React from 'react'
-import { useRouter } from 'expo-router'
+import {
+  View,
+  Text,
+  Pressable,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator
+} from "react-native"
+import React, { useState } from "react"
+import { useRouter } from "expo-router"
+import { login, register } from "@/services/authService"
 
 const Login = () => {
-    const router = useRouter()
+  const router = useRouter()
+  const [email, setEmail] = useState<string>("")
+  const [password, setPassword] = useState<string>("")
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const handleLogin = async () => {
+    // if(email)
+    // password
+    if (isLoading) return
+
+    setIsLoading(true)
+    await login(email, password)
+      .then((res) => {
+        router.push("/home")
+      })
+      .catch((err) => {
+        Alert.alert("Login failed", "Somthing went wrong")
+        console.error(err)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }
+
   return (
-    <View className="flex-1 bg-[#f8f4f0] justify-center items-center px-6">
-      {/* Title */}
-      <Text className="text-3xl font-bold text-gray-800 mb-2">
-        Login Screen
-      </Text>
-      <Text className="text-gray-500 mb-12 text-center">
-        Choose where you want to go next
-      </Text>
-
-      {/* Button: Go to Home */}
-      <Pressable
-        onPress={() => router.push('/home')}
-        className="w-full max-w-xs bg-blue-500 rounded-xl shadow-md mb-4"
-        android_ripple={{ color: '#ffffff30', borderless: false }}
-        style={({ pressed }) => [{ opacity: pressed ? 0.85 : 1 }]}
+    <View className="flex-1 w-full justify-center align-items-center p-4">
+      <Text className="text-4xl text-center mb-2">Login</Text>
+      <TextInput
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        className="bg-surface border border-gray-300 rounded px-4 py-3 mb-4 text-gray-900"
+      />
+      <TextInput
+        placeholder="Password"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+        className="bg-surface border border-gray-300 rounded px-4 py-3 mb-4 text-gray-900"
+      />
+      <TouchableOpacity
+        onPress={handleLogin}
+        className="bg-blue-600 p-4 rounded mt-2"
       >
-        <View className="px-6 py-4 flex-row justify-center items-center">
-          <Text className="text-white text-lg font-semibold">Go to Home</Text>
-        </View>
-      </Pressable>
-
-      {/* Button: Go to Register */}
-      <Pressable
-        onPress={() => router.push('/register')}
-        className="w-full max-w-xs bg-green-500 rounded-xl shadow-md"
-        android_ripple={{ color: '#ffffff30', borderless: false }}
-        style={({ pressed }) => [{ opacity: pressed ? 0.85 : 1 }]}
-      >
-        <View className="px-6 py-4 flex-row justify-center items-center">
-          <Text className="text-white text-lg font-semibold">Go to Register</Text>
-        </View>
+        {isLoading ? (
+          <ActivityIndicator color="#fff" size="large" />
+        ) : (
+          <Text className="text-center text-2xl">Login</Text>
+        )}
+      </TouchableOpacity>
+      <Pressable className="px-6 py-3" onPress={() => router.push("/register")}>
+        <Text className="text-xl text-center text-blue-500">
+          Don't have an account? Register
+        </Text>
       </Pressable>
     </View>
   )

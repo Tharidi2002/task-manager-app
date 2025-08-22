@@ -1,23 +1,26 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text } from "react-native"
+import React, { useEffect } from "react"
+import { getAllTask } from "@/services/taskService"
 
 const TasksScreen = () => {
+  const handleFetchData = async () => {
+    await getAllTask()
+      .then((data) => {
+        console.log(data)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+
+  useEffect(() => {
+    handleFetchData()
+  }, [])
+
   return (
-    <View className="flex-1 bg-[#f8f4f0] justify-center items-center px-6">
-          {/* Title */}
-          <Text className="text-3xl font-bold text-gray-800 mb-2">
-            Task Dashboard 
-          </Text>
-          <Text className="text-gray-500 mb-3 text-center">
-            You’re now on the main screen of the app
-          </Text>
-          {/* Additional Details */}
-          <Text className="text-gray-400 mb-12 text-center leading-6">
-            From here, you can explore your profile, register for a new account, or 
-            return to login. This is your starting point to navigate through all 
-            the app’s features with ease.
-          </Text>
-        </View>
+    <View className="flex-1 w-full justify-center align-items-center">
+      <Text className="text-center text-4xl">Tasks screen</Text>
+    </View>
   )
 }
 
